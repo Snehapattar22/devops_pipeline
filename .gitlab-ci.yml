@@ -1,0 +1,25 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t my-node-app .
+  only:
+    - main
+
+test:
+  stage: test
+  script:
+    - echo "Running tests..."
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - docker run -d -p 3000:3000 my-node-app
+  only:
+    - main
